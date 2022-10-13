@@ -37,7 +37,7 @@ class ExpiredPassesJobConfigTest {
 
     @Test
     public void expire_passes_step() throws Exception {
-//        addPassEntities(10);
+        addPassEntities(10);
 
         JobExecution jobExecution = jobLauncherTestUtils.launchJob();
         JobInstance jobInstance = jobExecution.getJobInstance();
