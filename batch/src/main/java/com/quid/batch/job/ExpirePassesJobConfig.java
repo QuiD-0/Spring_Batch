@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExpiredPassesJobConfig {
+public class ExpirePassesJobConfig {
 
     private final int CHUNK_SIZE = 5;
 
@@ -33,14 +33,14 @@ public class ExpiredPassesJobConfig {
 
 
     @Bean
-    public Job expiredPassesJob() {
-        return jobBuilderFactory.get("expiredPassesJob").start(expiredPassesStep())
+    public Job expirePassesJob() {
+        return jobBuilderFactory.get("expirePassesJob").start(expirePassesStep())
             .build();
     }
 
     @Bean
-    public Step expiredPassesStep() {
-        return stepBuilderFactory.get("expiredPassesStep").<Pass, Pass>chunk(CHUNK_SIZE)
+    public Step expirePassesStep() {
+        return stepBuilderFactory.get("expirePassesStep").<Pass, Pass>chunk(CHUNK_SIZE)
             .reader(expirePassesItemReader())
             .processor(expirePassesItemProcessor())
             .writer(expirePassesItemWriter())
