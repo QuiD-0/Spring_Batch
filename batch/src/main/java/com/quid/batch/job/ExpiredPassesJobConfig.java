@@ -1,7 +1,7 @@
 package com.quid.batch.job;
 
-import com.quid.batch.pass.Pass;
-import com.quid.batch.pass.PassStatus;
+import com.quid.batch.pass.entity.Pass;
+import com.quid.batch.pass.entity.PassStatus;
 import java.time.LocalDateTime;
 import java.util.Map;
 import javax.persistence.EntityManagerFactory;
