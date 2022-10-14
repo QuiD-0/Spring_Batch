@@ -3,5 +3,5 @@ db-up:
 
 
 db-down:
-	docker-compose down -
+	docker-compose down
 
