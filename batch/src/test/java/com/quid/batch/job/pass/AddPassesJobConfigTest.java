@@ -30,70 +30,72 @@ import org.springframework.batch.repeat.RepeatStatus;
 @ExtendWith(MockitoExtension.class)
 class AddPassesJobConfigTest {
 
-    @Mock
-    private StepContribution stepContribution;
+  @Mock
+  private StepContribution stepContribution;
 
-    @Mock
-    private ChunkContext chunkContext;
+  @Mock
+  private ChunkContext chunkContext;
 
-    @Mock
-    private PassRepository passRepository;
+  @Mock
+  private PassRepository passRepository;
 
-    @Mock
-    private BulkPassRepository bulkPassRepository;
+  @Mock
+  private BulkPassRepository bulkPassRepository;
 
-    @Mock
-    private UserGroupMappingRepository userGroupMappingRepository;
+  @Mock
+  private UserGroupMappingRepository userGroupMappingRepository;
 
-    @InjectMocks
-    private AddPassTasklet addPassTasklet;
+  @InjectMocks
+  private AddPassTasklet addPassTasklet;
 
-    @Test
-    public void test_execute() throws Exception {
-        // given
-        final String userGroupId = "GROUP";
-        final String userId = "A1000000";
-        final Integer packageSeq = 1;
-        final Integer count = 10;
+  @Test
+  public void test_execute() throws Exception {
+    // given
+    final String userGroupId = "GROUP";
+    final String userId = "A1000000";
+    final Integer packageSeq = 1;
+    final Integer count = 10;
 
-        final LocalDateTime now = LocalDateTime.now();
+    final LocalDateTime now = LocalDateTime.now();
 
-        final BulkPass bulkPassEntity = BulkPass.builder()
-            .packageSeq(packageSeq)
-            .bulkPassStatus(BulkPassStatus.READY)
-            .userGroupId(userGroupId)
-            .count(count)
-            .startedAt(now)
-            .endedAt(now.plusDays(60))
-            .build();
+    final BulkPass bulkPassEntity = BulkPass.builder()
+        .packageSeq(packageSeq)
+        .bulkPassStatus(BulkPassStatus.READY)
+        .userGroupId(userGroupId)
+        .count(count)
+        .startedAt(now)
+        .endedAt(now.plusDays(60))
+        .build();
 
-        final UserGroupMappingEntity userGroupMappingEntity = UserGroupMappingEntity.builder()
-            .userGroupId(userGroupId)
-            .userId(userId)
-            .build();
+    final UserGroupMappingEntity userGroupMappingEntity = UserGroupMappingEntity.builder()
+        .userGroupId(userGroupId)
+        .userId(userId)
+        .build();
 
-        // when
-        when(bulkPassRepository.findByBulkPassStatusAndStartedAtGreaterThan(eq(BulkPassStatus.READY), any())).thenReturn(
-            List.of(bulkPassEntity));
-        when(userGroupMappingRepository.findByUserGroupId(eq("GROUP"))).thenReturn(List.of(userGroupMappingEntity));
+    // when
+    when(bulkPassRepository.findByBulkPassStatusAndStartedAtGreaterThan(eq(BulkPassStatus.READY),
+        any())).thenReturn(
+        List.of(bulkPassEntity));
+    when(userGroupMappingRepository.findByUserGroupId(eq("GROUP"))).thenReturn(
+        List.of(userGroupMappingEntity));
 
-        RepeatStatus repeatStatus = addPassTasklet.execute(stepContribution, chunkContext);
+    RepeatStatus repeatStatus = addPassTasklet.execute(stepContribution, chunkContext);
 
-        // then
-        assertEquals(RepeatStatus.FINISHED, repeatStatus);
+    // then
+    assertEquals(RepeatStatus.FINISHED, repeatStatus);
 
-        // 추가된 PassEntity 값을 확인합니다.
-        ArgumentCaptor<List> passEntitiesCaptor = ArgumentCaptor.forClass(List.class);
-        verify(passRepository, times(1)).saveAll(passEntitiesCaptor.capture());
-        final List<Pass> passEntities = passEntitiesCaptor.getValue();
+    // 추가된 PassEntity 값을 확인합니다.
+    ArgumentCaptor<List> passEntitiesCaptor = ArgumentCaptor.forClass(List.class);
+    verify(passRepository, times(1)).saveAll(passEntitiesCaptor.capture());
+    final List<Pass> passEntities = passEntitiesCaptor.getValue();
 
-        assertEquals(1, passEntities.size());
-        final Pass passEntity = passEntities.get(0);
-        assertEquals(packageSeq, passEntity.getPackageSeq());
-        assertEquals(userId, passEntity.getUserId());
-        assertEquals(PassStatus.READY, passEntity.getStatus());
-        assertEquals(count, passEntity.getRemainingCount());
+    assertEquals(1, passEntities.size());
+    final Pass passEntity = passEntities.get(0);
+    assertEquals(packageSeq, passEntity.getPackageSeq());
+    assertEquals(userId, passEntity.getUserId());
+    assertEquals(PassStatus.READY, passEntity.getStatus());
+    assertEquals(count, passEntity.getRemainingCount());
 
-    }
+  }
 
 }
