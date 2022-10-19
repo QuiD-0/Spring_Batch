@@ -1,6 +1,5 @@
 package com.quid.batch.job.pass;
 
-import javax.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -13,23 +12,23 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class AddPassesJobConfig {
 
-    private final JobBuilderFactory jobBuilderFactory;
+  private final JobBuilderFactory jobBuilderFactory;
 
-    private final StepBuilderFactory stepBuilderFactory;
+  private final StepBuilderFactory stepBuilderFactory;
 
-    private final AddPassTasklet addPassTasklet;
+  private final AddPassTasklet addPassTasklet;
 
-    @Bean
-    public Job addPassesJob(){
-        return this.jobBuilderFactory.get("addPassesJob")
-            .start(addPassesStep())
-            .build();
-    }
+  @Bean
+  public Job addPassesJob() {
+    return this.jobBuilderFactory.get("addPassesJob")
+        .start(addPassesStep())
+        .build();
+  }
 
-    @Bean
-    public Step addPassesStep(){
-        return this.stepBuilderFactory.get("addPassesStep")
-            .tasklet(addPassTasklet)
-            .build();
-    }
+  @Bean
+  public Step addPassesStep() {
+    return this.stepBuilderFactory.get("addPassesStep")
+        .tasklet(addPassTasklet)
+        .build();
+  }
 }
