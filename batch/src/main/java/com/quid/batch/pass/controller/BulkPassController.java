@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BulkPassController {
 
-    private final BulkPassService bulkpassService;
+    private final BulkPassService bulkPassService;
 
     @GetMapping("/bulk-pass")
     public void addBulkPass(){
