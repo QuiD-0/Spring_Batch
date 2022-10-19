@@ -7,8 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.quid.batch.pass.BulkPassRepository;
-import com.quid.batch.pass.PassRepository;
+import com.quid.batch.pass.repository.BulkPassRepository;
+import com.quid.batch.pass.repository.PassRepository;
 import com.quid.batch.pass.entity.BulkPass;
 import com.quid.batch.pass.entity.BulkPassStatus;
 import com.quid.batch.pass.entity.Pass;

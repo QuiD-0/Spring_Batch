@@ -1,4 +1,4 @@
-package com.quid.batch.job;
+package com.quid.batch.job.pass;
 
 import com.quid.batch.pass.entity.Pass;
 import com.quid.batch.pass.entity.PassStatus;

@@ -1,4 +1,4 @@
-package com.quid.batch.pass;
+package com.quid.batch.pass.repository;
 
 import com.quid.batch.pass.entity.BulkPass;
 import com.quid.batch.pass.entity.BulkPassStatus;

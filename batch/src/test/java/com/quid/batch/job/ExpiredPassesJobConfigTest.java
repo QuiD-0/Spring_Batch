@@ -3,7 +3,8 @@ package com.quid.batch.job;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.quid.batch.config.TestBatchConfig;
-import com.quid.batch.pass.PassRepository;
+import com.quid.batch.job.pass.ExpirePassesJobConfig;
+import com.quid.batch.pass.repository.PassRepository;
 import com.quid.batch.pass.entity.Pass;
 import com.quid.batch.pass.entity.PassStatus;
 import java.time.LocalDateTime;
