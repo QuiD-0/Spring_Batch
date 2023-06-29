@@ -3,11 +3,8 @@ package com.quid.batch.coupon.repository
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.domain.CouponType
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
+import javax.persistence.*
 import javax.persistence.GenerationType.IDENTITY
-import javax.persistence.Id
-import javax.persistence.Table
 
 @Entity
 @Table(name = "coupon")
@@ -19,6 +16,7 @@ class CouponEntity(
         val isUsed: Boolean = false,
         val createdAt: LocalDateTime = LocalDateTime.now(),
         val expiredAt: LocalDateTime,
+        @Enumerated(EnumType.STRING)
         val couponType: CouponType,
         val deleted: Boolean = false,
 ) {

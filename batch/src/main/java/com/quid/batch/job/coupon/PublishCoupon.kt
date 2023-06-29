@@ -46,9 +46,9 @@ interface PublishCoupon {
                     createCoupon(
                         userId = it,
                         name = "쿠폰 $it",
-                        discount = 10,
+                        discount = 1000,
                         expiredAt = LocalDateTime.now().plusDays(7),
-                        couponType = CouponType.PERCENTAGE
+                        couponType = CouponType.AMOUNT
                     )
                 }
             }
