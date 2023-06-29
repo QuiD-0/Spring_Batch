@@ -56,7 +56,7 @@ interface PublishCoupon {
 
         private fun findUser(): JpaPagingItemReader<Long> {
             return JpaPagingItemReader<Long>().apply {
-                setQueryString("select u.id from UserEntity u where u.age > 25")
+                setQueryString("select u.id from UserEntity u where user.tier != 'BASIC'")
                 setEntityManagerFactory(entityManagerFactory)
                 pageSize = CHUNK_SIZE
             }
