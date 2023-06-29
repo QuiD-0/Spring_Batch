@@ -9,8 +9,11 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.ItemWriter
+import org.springframework.batch.item.database.JpaPagingItemReader
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import javax.persistence.EntityManagerFactory
+import javax.sql.DataSource
 
 interface CouponJob {
 
@@ -18,14 +21,15 @@ interface CouponJob {
 
     @Service
     class CouponJobImpl(
-            private val stepBuilderFactory: StepBuilderFactory
+            private val stepBuilderFactory: StepBuilderFactory,
+            private val entityManagerFactory: EntityManagerFactory
     ) : CouponJob {
 
         @JobScope
         override fun publishAll(): Step {
             return stepBuilderFactory.get("publishAll")
                     .chunk<Long, Coupon>(1)
-                    .reader(findAll())
+                    .reader(findUser())
                     .processor(makeCoupon())
                     .writer(saveAll())
                     .build()
@@ -49,8 +53,12 @@ interface CouponJob {
             }
         }
 
-        private fun findAll(): ItemReader<Long> {
-            return CustomItemReader(arrayListOf(1L, 2L, 3L, 4L, 5L))
+        private fun findUser(): JpaPagingItemReader<Long> {
+            return JpaPagingItemReader<Long>().apply {
+                setQueryString("select u.id from User u")
+                setEntityManagerFactory(entityManagerFactory)
+                pageSize = 5
+            }
         }
 
 

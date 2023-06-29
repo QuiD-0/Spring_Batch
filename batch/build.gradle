@@ -12,6 +12,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
     id 'java'
     id 'net.ltgt.apt' version '0.15'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.5.31'
+    id 'org.jetbrains.kotlin.plugin.jpa' version '1.5.31'
 }
 
 apply plugin: "net.ltgt.apt"
@@ -34,7 +37,6 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.projectlombok:lombok:1.18.22'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -42,6 +44,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 tasks.named('test') {
