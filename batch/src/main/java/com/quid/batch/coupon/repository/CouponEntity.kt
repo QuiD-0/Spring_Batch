@@ -13,14 +13,38 @@ import javax.persistence.Table
 @Table(name = "coupon")
 class CouponEntity(
         @Id @GeneratedValue(strategy = IDENTITY) private val id: Long? = null,
-        private val userId: Long,
-        private val name: String,
-        private val discount: Int,
-        private val isUsed: Boolean = false,
-        private val createdAt: LocalDateTime = LocalDateTime.now(),
-        private val expiredAt: LocalDateTime,
-        private val couponType: CouponType,
-)
+        val userId: Long,
+        val name: String,
+        val discount: Int,
+        val isUsed: Boolean = false,
+        val createdAt: LocalDateTime = LocalDateTime.now(),
+        val expiredAt: LocalDateTime,
+        val couponType: CouponType,
+        val deleted: Boolean = false,
+) {
+    fun copy(
+            userId: Long = this.userId,
+            name: String = this.name,
+            discount: Int = this.discount,
+            isUsed: Boolean = this.isUsed,
+            createdAt: LocalDateTime = this.createdAt,
+            expiredAt: LocalDateTime = this.expiredAt,
+            couponType: CouponType = this.couponType,
+            deleted: Boolean = this.deleted,
+    ): CouponEntity {
+        return CouponEntity(
+                id = this.id,
+                userId = userId,
+                name = name,
+                discount = discount,
+                isUsed = isUsed,
+                createdAt = createdAt,
+                expiredAt = expiredAt,
+                couponType = couponType,
+                deleted = deleted,
+        )
+    }
+}
 
 fun toEntity(coupon: () -> Coupon): CouponEntity = CouponEntity(
         userId = coupon().userId,

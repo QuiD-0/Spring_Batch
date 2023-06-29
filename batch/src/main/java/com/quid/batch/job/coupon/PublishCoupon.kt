@@ -1,6 +1,5 @@
 package com.quid.batch.job.coupon
 
-import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.domain.CouponType
 import com.quid.batch.coupon.domain.createCoupon
 import com.quid.batch.coupon.repository.CouponEntity
@@ -15,27 +14,27 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import javax.persistence.EntityManagerFactory
 
-interface CouponJob {
+interface PublishCoupon {
 
-    fun publishAll(): Step
+    fun execute(): Step
 
     @Service
     class CouponJobImpl(
             private val stepBuilderFactory: StepBuilderFactory,
             private val entityManagerFactory: EntityManagerFactory
-    ) : CouponJob {
+    ) : PublishCoupon {
 
         @JobScope
-        override fun publishAll(): Step {
+        override fun execute(): Step {
             return stepBuilderFactory.get("publishAll")
                     .chunk<Long, CouponEntity>(CHUNK_SIZE)
                     .reader(findUser())
                     .processor(makeCoupon())
-                    .writer(save())
+                    .writer(persist())
                     .build()
         }
 
-        private fun save(): JpaItemWriter<in CouponEntity> {
+        private fun persist(): JpaItemWriter<in CouponEntity> {
             return JpaItemWriter<CouponEntity>().apply {
                 setEntityManagerFactory(entityManagerFactory)
             }
@@ -64,7 +63,7 @@ interface CouponJob {
         }
 
         companion object {
-            private const val CHUNK_SIZE = 5
+            private const val CHUNK_SIZE = 10
         }
 
     }
