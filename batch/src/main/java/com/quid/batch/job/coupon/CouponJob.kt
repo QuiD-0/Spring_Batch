@@ -28,7 +28,7 @@ interface CouponJob {
         @JobScope
         override fun publishAll(): Step {
             return stepBuilderFactory.get("publishAll")
-                    .chunk<Long, Coupon>(1)
+                    .chunk<Long, Coupon>(CHUNK_SIZE)
                     .reader(findUser())
                     .processor(makeCoupon())
                     .writer(saveAll())
@@ -55,12 +55,15 @@ interface CouponJob {
 
         private fun findUser(): JpaPagingItemReader<Long> {
             return JpaPagingItemReader<Long>().apply {
-                setQueryString("select u.id from User u")
+                setQueryString("select u.id from UserEntity u")
                 setEntityManagerFactory(entityManagerFactory)
-                pageSize = 5
+                pageSize = CHUNK_SIZE
             }
         }
 
+        companion object {
+            private const val CHUNK_SIZE = 5
+        }
 
     }
 }
