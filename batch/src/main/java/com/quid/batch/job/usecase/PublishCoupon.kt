@@ -1,4 +1,4 @@
-package com.quid.batch.job.coupon
+package com.quid.batch.job.usecase
 
 import com.quid.batch.coupon.domain.CouponType
 import com.quid.batch.coupon.domain.createCoupon
