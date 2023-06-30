@@ -42,6 +42,19 @@ class CouponEntity(
                 deleted = deleted,
         )
     }
+
+    fun toDomain(): Coupon {
+        return Coupon(
+                id = this.id,
+                userId = this.userId,
+                name = this.name,
+                discount = this.discount,
+                isUsed = this.isUsed,
+                createdAt = this.createdAt,
+                expiredAt = this.expiredAt,
+                couponType = this.couponType,
+        )
+    }
 }
 
 fun toEntity(coupon: () -> Coupon): CouponEntity = CouponEntity(

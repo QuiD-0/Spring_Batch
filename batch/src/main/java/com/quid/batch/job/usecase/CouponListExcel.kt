@@ -1,5 +1,6 @@
 package com.quid.batch.job.usecase
 
+import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.repository.CouponRepository
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
@@ -20,12 +21,14 @@ interface CouponListExcel {
             stepBuilderFactory.get("couponListExcel")
                 .tasklet { _, _ ->
                     couponRepository.findUsableCoupon()
-                        .let {
-
-                        }
+                            .also { excelDown(it) }
                     FINISHED
                 }
                 .build()
+
+        private fun excelDown(it: List<Coupon>) {
+            println("excelDown ${it.size}")
+        }
 
     }
 }

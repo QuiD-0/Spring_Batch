@@ -17,8 +17,9 @@ class JobConfig(
 ) {
     @Bean("couponJob")
     fun couponJob() = jobBuilderFactory.get("couponJob")
-            .start(publishCoupon.execute())
-            .next(deleteExpiredCoupon.execute())
-            .next(couponListExcel.download())
+//            .start(publishCoupon.execute())
+//            .next(deleteExpiredCoupon.execute())
+//            .next(couponListExcel.download())
+            .start(couponListExcel.download())
             .build()
 }
