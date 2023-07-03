@@ -26,16 +26,13 @@ interface CouponListExcel{
             stepBuilderFactory.get("couponListExcel")
                 .tasklet { _, _ ->
                     couponRepository.findUsableCoupon()
-                            .also { excelDown(it) }
+                        .also { excelDown(it) }
                     FINISHED
                 }
                 .build()
 
-        private fun excelDown(it: List<Coupon>) {
-            val home = System.getProperty("user.home")
-            val today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toString()
-            excelDownloader.download("$home\\Downloads\\available_coupon_$today.xlsx","쿠폰리스트", it.map { CouponExcelDto.of(it) })
-        }
+        private fun excelDown(it: List<Coupon>) =
+            excelDownloader.download("couponList", it.map { CouponExcelDto.of(it) })
 
     }
 }

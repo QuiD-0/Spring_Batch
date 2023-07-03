@@ -18,7 +18,10 @@ class ExcelDownloader {
         Binder(response.outputStream, name, data, lang).build()
     }
 
-    fun <T> download(path:String, name: String, data :List<T>) {
-        Binder(path, name, data).build()
+    fun <T> download(name: String, data :List<T>) {
+        val home = System.getProperty("user.home")
+        val today = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toString()
+        val fileName = "$home\\Downloads\\coupon_$today.xlsx"
+        Binder(fileName, name, data).build()
     }
 }
