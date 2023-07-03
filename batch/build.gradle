@@ -45,6 +45,7 @@ dependencies {
     testImplementation 'org.springframework.batch:spring-batch-test'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation 'org.dhatim:fastexcel:0.15.3'
 }
 
 tasks.named('test') {
