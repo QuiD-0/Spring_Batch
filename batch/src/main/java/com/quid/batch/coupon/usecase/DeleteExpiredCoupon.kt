@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import javax.persistence.EntityManagerFactory
 
+@FunctionalInterface
 interface DeleteExpiredCoupon {
 
     fun execute(): Step

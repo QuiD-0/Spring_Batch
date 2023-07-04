@@ -9,6 +9,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.repeat.RepeatStatus.FINISHED
 import org.springframework.stereotype.Service
 
+@FunctionalInterface
 interface CouponListExcel {
 
     fun download(): Step
