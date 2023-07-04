@@ -1,10 +1,10 @@
 package com.quid.batch.job
 
-import com.quid.batch.job.usecase.CouponListExcel
-import com.quid.batch.job.usecase.DeleteExpiredCoupon
-import com.quid.batch.job.usecase.PublishCoupon
+import com.quid.batch.coupon.usecase.CouponListExcel
+import com.quid.batch.coupon.usecase.DeleteExpiredCoupon
+import com.quid.batch.coupon.usecase.PublishCoupon
+import org.springframework.batch.core.Job
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
-import org.springframework.boot.autoconfigure.batch.BatchProperties.*
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -16,13 +16,13 @@ class JobConfig(
     private val couponListExcel: CouponListExcel
 ) {
     @Bean("couponJob")
-    fun couponJob() = jobBuilderFactory.get("couponJob")
+    fun couponJob(): Job = jobBuilderFactory.get("couponJob")
         .start(publishCoupon.execute())
         .next(deleteExpiredCoupon.execute())
         .build()
 
     @Bean("downloadJob")
-    fun downloadJob() = jobBuilderFactory.get("downloadJob")
+    fun downloadJob(): Job = jobBuilderFactory.get("downloadJob")
         .start(couponListExcel.download())
         .build()
 }

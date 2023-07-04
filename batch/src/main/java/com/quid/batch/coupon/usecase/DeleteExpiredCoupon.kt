@@ -1,4 +1,4 @@
-package com.quid.batch.job.usecase
+package com.quid.batch.coupon.usecase
 
 import com.quid.batch.coupon.repository.CouponEntity
 import org.springframework.batch.core.Step
