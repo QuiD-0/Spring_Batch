@@ -1,6 +1,6 @@
 package com.quid.batch.job.usecase
 
-import com.quid.batch.common.excel.ExcelDownloader
+import com.quid.batch.common.excel.ExcelUtils
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.model.CouponExcelDto
 import com.quid.batch.coupon.repository.CouponRepository
@@ -17,7 +17,7 @@ interface CouponListExcel {
     class CouponListExcelImpl(
         private val stepBuilderFactory: StepBuilderFactory,
         private val couponRepository: CouponRepository,
-        private val excelDownloader: ExcelDownloader
+        private val excelUtils: ExcelUtils
     ) : CouponListExcel {
 
         override fun download(): Step =
@@ -30,7 +30,7 @@ interface CouponListExcel {
                 .build()
 
         private fun excelDown(it: List<Coupon>) =
-            excelDownloader.download("couponList", it.map { CouponExcelDto.of(it) })
+            excelUtils.download("couponList", it.map { CouponExcelDto.of(it) })
 
     }
 }

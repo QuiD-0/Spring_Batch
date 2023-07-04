@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class ExcelDownloader {
+class ExcelUtils {
 
     fun <T> download(
         response: HttpServletResponse,
@@ -31,8 +31,7 @@ class ExcelDownloader {
         data: List<T>
     ) {
         val home = System.getProperty("user.home")
-        val today =
-            LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toString()
+        val today: String = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
         val fileName = "$home\\Downloads\\coupon_$today.xlsx"
         Binder(fileName, name, data).build()
     }
