@@ -8,18 +8,16 @@ import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.repeat.RepeatStatus.FINISHED
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-interface CouponListExcel{
+interface CouponListExcel {
 
     fun download(): Step
 
     @Service
     class CouponListExcelImpl(
-            private val stepBuilderFactory: StepBuilderFactory,
-            private val couponRepository: CouponRepository,
-            private val excelDownloader: ExcelDownloader
+        private val stepBuilderFactory: StepBuilderFactory,
+        private val couponRepository: CouponRepository,
+        private val excelDownloader: ExcelDownloader
     ) : CouponListExcel {
 
         override fun download(): Step =

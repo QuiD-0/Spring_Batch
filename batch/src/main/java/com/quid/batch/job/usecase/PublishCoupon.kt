@@ -20,18 +20,18 @@ interface PublishCoupon {
 
     @Service
     class CouponJobImpl(
-            private val stepBuilderFactory: StepBuilderFactory,
-            private val entityManagerFactory: EntityManagerFactory
+        private val stepBuilderFactory: StepBuilderFactory,
+        private val entityManagerFactory: EntityManagerFactory
     ) : PublishCoupon {
 
         @JobScope
         override fun execute(): Step {
             return stepBuilderFactory.get("publishAll")
-                    .chunk<Long, CouponEntity>(CHUNK_SIZE)
-                    .reader(findUser())
-                    .processor(makeCoupon())
-                    .writer(persist())
-                    .build()
+                .chunk<Long, CouponEntity>(CHUNK_SIZE)
+                .reader(findUser())
+                .processor(makeCoupon())
+                .writer(persist())
+                .build()
         }
 
         private fun persist(): JpaItemWriter<in CouponEntity> {

@@ -10,15 +10,19 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class JobConfig(
-        private val jobBuilderFactory: JobBuilderFactory,
-        private val publishCoupon: PublishCoupon,
-        private val deleteExpiredCoupon: DeleteExpiredCoupon,
-        private val couponListExcel: CouponListExcel
+    private val jobBuilderFactory: JobBuilderFactory,
+    private val publishCoupon: PublishCoupon,
+    private val deleteExpiredCoupon: DeleteExpiredCoupon,
+    private val couponListExcel: CouponListExcel
 ) {
     @Bean("couponJob")
     fun couponJob() = jobBuilderFactory.get("couponJob")
-            .start(publishCoupon.execute())
-            .next(deleteExpiredCoupon.execute())
-            .next(couponListExcel.download())
-            .build()
+        .start(publishCoupon.execute())
+        .next(deleteExpiredCoupon.execute())
+        .build()
+
+    @Bean("downloadJob")
+    fun downloadJob() = jobBuilderFactory.get("downloadJob")
+        .start(couponListExcel.download())
+        .build()
 }

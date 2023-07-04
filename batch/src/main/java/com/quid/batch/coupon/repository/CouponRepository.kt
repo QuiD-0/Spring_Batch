@@ -6,15 +6,19 @@ import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
 interface CouponRepository {
-    fun findUsableCoupon():List<Coupon>
+    fun findUsableCoupon(): List<Coupon>
 
     @Repository
     class CouponRepositoryImpl(
-            private val couponJpaRepository: CouponJpaRepository
+        private val couponJpaRepository: CouponJpaRepository
     ) : CouponRepository {
         override fun findUsableCoupon(): List<Coupon> {
-            return couponJpaRepository.findByDeletedAndIsUsedAndExpiredAtAfter(isUsed = false, deleted = false, expiredAt = LocalDateTime.now())
-                    .map { it.toDomain() }
+            return couponJpaRepository.findByDeletedAndIsUsedAndExpiredAtAfter(
+                isUsed = false,
+                deleted = false,
+                expiredAt = LocalDateTime.now()
+            )
+                .map { it.toDomain() }
         }
     }
 }
