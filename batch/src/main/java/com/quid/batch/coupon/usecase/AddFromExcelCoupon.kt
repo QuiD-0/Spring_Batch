@@ -19,18 +19,16 @@ interface AddFromExcelCoupon {
         private val couponRepository: CouponRepository,
     ) : AddFromExcelCoupon {
 
-        override fun execute(): Step =
-            stepBuilderFactory.get("addFromExcelCoupon")
-                .tasklet { _, _ ->
-                    takeIf { excelPublishCheck(EXCEL_FILE_NAME) }
-                         ?:let{
-                             readCouponListFromExcel()
-                                 .also{ couponRepository.saveAll(it) }
-                                 .also { excelPublishComplete(EXCEL_FILE_NAME) }
-                         }
-                    RepeatStatus.FINISHED
+        override fun execute(): Step = stepBuilderFactory.get("addFromExcelCoupon")
+            .tasklet { _, _ ->
+                if(excelPublishCheck(EXCEL_FILE_NAME)){
+                    readCouponListFromExcel()
+                        .also { couponRepository.saveAll(it) }
+                        .also { excelPublishComplete(EXCEL_FILE_NAME) }
                 }
-                .build()
+                RepeatStatus.FINISHED
+            }
+            .build()
 
 
         private fun readCouponListFromExcel(): List<Coupon> {
