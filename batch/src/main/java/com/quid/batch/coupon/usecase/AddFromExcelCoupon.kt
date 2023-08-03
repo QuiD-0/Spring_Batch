@@ -1,5 +1,7 @@
 package com.quid.batch.coupon.usecase
 
+import com.quid.batch.common.ExcelComponent.excelPublishCheck
+import com.quid.batch.common.ExcelComponent.excelPublishComplete
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.repository.CouponRepository
 import org.springframework.batch.core.Step
@@ -20,26 +22,16 @@ interface AddFromExcelCoupon {
         override fun execute(): Step =
             stepBuilderFactory.get("addFromExcelCoupon")
                 .tasklet { _, _ ->
-                    takeIf { checkExcelFile() }
-                         ?.let{
+                    takeIf { excelPublishCheck(EXCEL_FILE_NAME) }
+                         ?:let{
                              readCouponListFromExcel()
                                  .also{ couponRepository.saveAll(it) }
-                                 .also { completeExcelFile() }
+                                 .also { excelPublishComplete(EXCEL_FILE_NAME) }
                          }
-                        ?: throw IllegalArgumentException("Excel file already published")
                     RepeatStatus.FINISHED
                 }
                 .build()
 
-        private fun completeExcelFile() {
-            val excelFile = File(EXCEL_FILE_NAME)
-            excelFile.renameTo(File("${excelFile.absolutePath}.complete"))
-        }
-
-        private fun checkExcelFile(): Boolean {
-            val excelFile = File(EXCEL_FILE_NAME)
-            return excelFile.exists()
-        }
 
         private fun readCouponListFromExcel(): List<Coupon> {
             val couponList = mutableListOf<Coupon>()
