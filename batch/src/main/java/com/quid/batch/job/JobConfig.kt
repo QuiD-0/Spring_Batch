@@ -1,5 +1,6 @@
 package com.quid.batch.job
 
+import com.quid.batch.coupon.usecase.AddFromExcelCoupon
 import com.quid.batch.coupon.usecase.CouponListExcel
 import com.quid.batch.coupon.usecase.DeleteExpiredCoupon
 import com.quid.batch.coupon.usecase.PublishCoupon
@@ -13,12 +14,14 @@ class JobConfig(
     private val jobBuilderFactory: JobBuilderFactory,
     private val publishCoupon: PublishCoupon,
     private val deleteExpiredCoupon: DeleteExpiredCoupon,
-    private val couponListExcel: CouponListExcel
+    private val couponListExcel: CouponListExcel,
+    private val addFromExcelCoupon: AddFromExcelCoupon
 ) {
     @Bean("couponJob")
     fun couponJob(): Job = jobBuilderFactory.get("couponJob")
         .start(publishCoupon.execute())
         .next(deleteExpiredCoupon.execute())
+        .next(addFromExcelCoupon.execute())
         .build()
 
     @Bean("downloadJob")
