@@ -1,8 +1,8 @@
 package com.quid.batch.coupon.model;
 
-import com.quid.batch.common.excel.FieldsHeaders;
-import com.quid.batch.common.excel.Headers;
-import com.quid.batch.common.excel.Internationalization;
+import com.quid.batch.common.excelDownloader.FieldsHeaders;
+import com.quid.batch.common.excelDownloader.Headers;
+import com.quid.batch.common.excelDownloader.Internationalization;
 import com.quid.batch.coupon.domain.Coupon;
 import java.time.format.DateTimeFormatter;
 
