@@ -1,6 +1,6 @@
-package com.quid.batch.coupon.repository.jpa
+package com.quid.batch.coupon.gateway.repository.jpa
 
-import com.quid.batch.coupon.repository.CouponEntity
+import com.quid.batch.coupon.gateway.repository.CouponEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
 

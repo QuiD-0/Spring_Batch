@@ -1,4 +1,4 @@
-package com.quid.batch.coupon.repository
+package com.quid.batch.coupon.gateway.repository
 
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.domain.CouponType

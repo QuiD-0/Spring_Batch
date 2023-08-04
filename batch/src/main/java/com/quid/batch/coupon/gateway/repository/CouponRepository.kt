@@ -1,8 +1,8 @@
-package com.quid.batch.coupon.repository
+package com.quid.batch.coupon.gateway.repository
 
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.domain.createCoupon
-import com.quid.batch.coupon.repository.jpa.CouponJpaRepository
+import com.quid.batch.coupon.gateway.repository.jpa.CouponJpaRepository
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
@@ -19,8 +19,7 @@ interface CouponRepository {
                 isUsed = false,
                 deleted = false,
                 expiredAt = LocalDateTime.now()
-            )
-                .map { it.toDomain() }
+            ).map { it.toDomain() }
         }
 
         override fun saveAll(couponList: List<Coupon>): List<Coupon> =
