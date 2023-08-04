@@ -2,8 +2,8 @@ package com.quid.batch.coupon.usecase
 
 import com.quid.batch.coupon.domain.CouponType
 import com.quid.batch.coupon.domain.createCoupon
-import com.quid.batch.coupon.gateway.repository.CouponEntity
-import com.quid.batch.coupon.gateway.repository.toEntity
+import com.quid.batch.coupon.repository.CouponEntity
+import com.quid.batch.coupon.repository.toEntity
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobScope
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory

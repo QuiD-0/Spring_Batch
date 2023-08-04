@@ -1,6 +1,6 @@
 package com.quid.batch.coupon.usecase
 
-import com.quid.batch.coupon.gateway.repository.CouponEntity
+import com.quid.batch.coupon.repository.CouponEntity
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.item.ItemProcessor

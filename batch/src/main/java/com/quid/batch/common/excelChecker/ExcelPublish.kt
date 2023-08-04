@@ -1,4 +1,4 @@
-package com.quid.batch.common.ExcelComponent
+package com.quid.batch.common.excelChecker
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.File

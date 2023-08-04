@@ -1,8 +1,8 @@
-package com.quid.batch.coupon.gateway.repository
+package com.quid.batch.coupon.repository
 
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.domain.createCoupon
-import com.quid.batch.coupon.gateway.repository.jpa.CouponJpaRepository
+import com.quid.batch.coupon.repository.jpa.CouponJpaRepository
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 

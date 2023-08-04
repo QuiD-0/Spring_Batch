@@ -1,12 +1,13 @@
 package com.quid.batch.coupon.usecase
 
-import com.quid.batch.common.ExcelComponent.excelPublishCheck
-import com.quid.batch.common.ExcelComponent.excelPublishComplete
-import com.quid.batch.coupon.gateway.excel.CouponExcelReader
-import com.quid.batch.coupon.gateway.repository.CouponRepository
+import com.quid.batch.common.excelChecker.excelPublishCheck
+import com.quid.batch.common.excelChecker.excelPublishComplete
+import com.quid.batch.reader.ExcelReader
+import com.quid.batch.coupon.repository.CouponRepository
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.repeat.RepeatStatus
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 
 interface AddFromExcelCoupon {
@@ -16,7 +17,8 @@ interface AddFromExcelCoupon {
     class AddFromExcelCouponImpl(
         private val stepBuilderFactory: StepBuilderFactory,
         private val couponRepository: CouponRepository,
-        private val couponExcelReader : CouponExcelReader
+        @Qualifier("couponExcelReader")
+        private val couponExcelReader : ExcelReader
     ) : AddFromExcelCoupon {
 
         override fun execute(): Step = stepBuilderFactory.get("addFromExcelCoupon")

@@ -1,4 +1,4 @@
-package com.quid.batch.common.ExcelComponent
+package com.quid.batch.common.excelChecker
 
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
