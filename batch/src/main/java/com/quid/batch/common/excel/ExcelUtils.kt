@@ -1,4 +1,4 @@
-package com.quid.batch.common.excelDownloader
+package com.quid.batch.common.excel
 
 import org.springframework.stereotype.Component
 import java.net.URLEncoder

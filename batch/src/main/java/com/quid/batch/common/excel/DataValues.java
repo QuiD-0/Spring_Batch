@@ -1,4 +1,4 @@
-package com.quid.batch.common.excelDownloader;
+package com.quid.batch.common.excel;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;

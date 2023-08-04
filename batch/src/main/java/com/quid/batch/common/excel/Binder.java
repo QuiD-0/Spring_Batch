@@ -1,4 +1,4 @@
-package com.quid.batch.common.excelDownloader;
+package com.quid.batch.common.excel;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

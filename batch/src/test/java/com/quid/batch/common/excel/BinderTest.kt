@@ -1,4 +1,4 @@
-package com.quid.batch.common.excelDownloader
+package com.quid.batch.common.excel
 
 import com.quid.batch.coupon.model.CouponExcelDto
 import org.junit.jupiter.api.Test

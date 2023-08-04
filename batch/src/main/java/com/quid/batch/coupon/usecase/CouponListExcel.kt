@@ -1,6 +1,6 @@
 package com.quid.batch.coupon.usecase
 
-import com.quid.batch.common.excelDownloader.ExcelUtils
+import com.quid.batch.common.excel.ExcelUtils
 import com.quid.batch.coupon.domain.Coupon
 import com.quid.batch.coupon.model.CouponExcelDto
 import com.quid.batch.coupon.repository.CouponRepository
